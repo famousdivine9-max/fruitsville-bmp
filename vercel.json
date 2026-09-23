@@ -5,6 +5,12 @@
       "has": [{ "type": "host", "value": "fruitsville-staff.vercel.app" }],
       "destination": "/admin/login",
       "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "fruitsville-admin.vercel.app" }],
+      "destination": "/admin/login",
+      "permanent": false
     }
   ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]

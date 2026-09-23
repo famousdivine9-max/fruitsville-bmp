@@ -129,7 +129,8 @@ condensed sans-serif wordmark style is a good match for Poppins ExtraBold.
   It's low-resolution; replace it with the original logo file when Famous provides one.
 
 **Staff/admin access:** the public site has NO link to the admin portal. Staff use the separate URL
-https://fruitsville-staff.vercel.app (redirects to `/admin/login`, see `vercel.json`).
+https://fruitsville-staff.vercel.app and the owner https://fruitsville-admin.vercel.app (both redirect to
+`/admin/login`, see `vercel.json`; the role on the account decides access).
 
 **Photos & motion:** real photos live in `public/images/gallery` (listed in `bmp.gallery_images`)
 and `public/images/products` (set as product `image_url` by seed.sql). The Home hero is a cross-fading

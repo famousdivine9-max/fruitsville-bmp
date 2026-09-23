@@ -43,7 +43,7 @@ Roles: `staff` (sales, restocks) < `manager` (products, categories, stock adjust
 
 ## Staff portal
 
-The public site doesn't link to the admin portal. Staff sign in at **https://fruitsville-staff.vercel.app**, which redirects to `/admin/login`.
+The public site doesn't link to the admin portal. Staff sign in at **https://fruitsville-staff.vercel.app** and the owner at **https://fruitsville-admin.vercel.app**. Both redirect to `/admin/login`, and the account's role decides what each person can see.
 
 ## Deploy (Vercel)
 
