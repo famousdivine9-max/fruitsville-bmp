@@ -14,7 +14,7 @@ const LINKS = [
 
 const linkClass = ({ isActive }) =>
   `rounded-full px-3 py-2 text-sm font-semibold transition ${
-    isActive ? 'bg-white text-maroon' : 'text-white/90 hover:bg-white/10 hover:text-white'
+    isActive ? 'bg-white text-brand' : 'text-white/90 hover:bg-white/10 hover:text-white'
   }`
 
 export default function Navbar() {
@@ -23,7 +23,7 @@ export default function Navbar() {
   const orderLink = whatsappLink(settings, 'Hello, I would like to place an order.')
 
   return (
-    <header className="sticky top-0 z-30 bg-maroon text-white shadow-md">
+    <header className="sticky top-0 z-30 bg-brand text-white shadow-md">
       <nav className="container-page flex h-16 items-center justify-between gap-4">
         <Link to="/" className="shrink-0" onClick={() => setOpen(false)}>
           <Logo settings={settings} nameClassName="text-white" />

@@ -120,7 +120,7 @@ export default function Sales() {
         </div>
         {product && unitPrice && (
           <p className="text-sm text-gray-600 sm:col-span-2 lg:col-span-6">
-            Total: <strong className="text-maroon">{formatMoney(Number(quantity) * Number(unitPrice), currency)}</strong>
+            Total: <strong className="text-brand">{formatMoney(Number(quantity) * Number(unitPrice), currency)}</strong>
           </p>
         )}
       </form>
@@ -128,7 +128,7 @@ export default function Sales() {
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-semibold">Sales on</h2>
         <input type="date" className="input w-auto" value={day} onChange={(e) => setDay(e.target.value)} />
-        <p className="ml-auto text-sm">Day total: <strong className="text-maroon">{formatMoney(total, currency)}</strong></p>
+        <p className="ml-auto text-sm">Day total: <strong className="text-brand">{formatMoney(total, currency)}</strong></p>
       </div>
       <div className="card overflow-x-auto">
         <table className="table-base">

@@ -41,6 +41,10 @@ In a project shared with another app, use the SQL Editor rather than `supabase d
 
 Roles: `staff` (sales, restocks) < `manager` (products, categories, stock adjustments, reports) < `administrator` (settings, users) < `super_admin`.
 
+## Staff portal
+
+The public site doesn't link to the admin portal. Staff sign in at **https://fruitsville-staff.vercel.app**, which redirects to `/admin/login`.
+
 ## Deploy (Vercel)
 
 ```bash
@@ -55,5 +59,5 @@ vercel --prod
 
 ## Pending assets
 
-- `public/logo.png` is a placeholder. Replace it with the real logo file.
+- `public/logo.png` is cut from the product sticker. Replace it with the original high-resolution logo file when you have it.
 - Product photos: upload them in Admin → Products. They go to the `product-images` storage bucket.

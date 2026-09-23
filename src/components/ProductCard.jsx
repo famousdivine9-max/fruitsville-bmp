@@ -21,7 +21,7 @@ export default function ProductCard({ product }) {
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-base font-bold text-charcoal">{product.name}</h3>
           {hasPrice && (
-            <span className="whitespace-nowrap font-semibold text-maroon">
+            <span className="whitespace-nowrap font-semibold text-brand">
               {formatMoney(product.price, settings?.currency)}
             </span>
           )}

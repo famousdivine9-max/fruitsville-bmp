@@ -31,14 +31,14 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero — maroon gradient, red accent badge/CTA, photo panels */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-maroon via-maroon to-maroon-dark text-white">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-red/20 blur-3xl" />
+      {/* Hero — brand gradient, red accent badge/CTA, photo panels */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand via-brand to-brand-dark text-white">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-green/20 blur-3xl" />
 
         <div className="container-page relative grid items-center gap-10 py-16 md:grid-cols-2 md:py-24">
           <div>
-            <span className="badge bg-red px-4 py-1 text-xs uppercase tracking-widest text-white">
+            <span className="badge bg-green px-4 py-1 text-xs uppercase tracking-widest text-white">
               Today&apos;s specials · Made fresh daily
             </span>
             <h1 className="mt-5 text-4xl font-extrabold uppercase leading-tight tracking-tight sm:text-5xl lg:text-6xl">
@@ -79,9 +79,9 @@ export default function Home() {
               <Link
                 key={c.id}
                 to={`/menu#${c.slug}`}
-                className="card group p-5 text-center transition hover:-translate-y-0.5 hover:border-maroon/40"
+                className="card group p-5 text-center transition hover:-translate-y-0.5 hover:border-brand/40"
               >
-                <p className="font-display text-base font-bold text-maroon group-hover:text-red">{c.name}</p>
+                <p className="font-display text-base font-bold text-brand group-hover:text-red">{c.name}</p>
                 {c.description && <p className="mt-1 text-xs text-gray-500">{c.description}</p>}
               </Link>
             ))}
@@ -90,10 +90,10 @@ export default function Home() {
       )}
 
       {showcase.length > 0 && (
-        <section className="bg-maroon-light/60 py-14">
+        <section className="bg-brand-light/60 py-14">
           <div className="container-page">
             <div className="mb-8 flex items-end justify-between gap-4">
-              <h2 className="text-2xl font-extrabold text-maroon sm:text-3xl">
+              <h2 className="text-2xl font-extrabold text-brand sm:text-3xl">
                 {featured.length ? 'Customer favourites' : 'From our menu'}
               </h2>
               <Link to="/menu" className="text-sm font-semibold text-red hover:underline">

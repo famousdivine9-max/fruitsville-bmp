@@ -8,7 +8,7 @@ export default function About() {
 
   return (
     <>
-      <section className="bg-gradient-to-br from-maroon to-maroon-dark py-12 text-white">
+      <section className="bg-gradient-to-br from-brand to-brand-dark py-12 text-white">
         <div className="container-page">
           <h1 className="text-4xl font-extrabold uppercase">About {settings?.business_name}</h1>
           {settings?.tagline && <p className="mt-2 text-white/80">{settings.tagline}</p>}

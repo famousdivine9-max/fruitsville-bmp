@@ -10,7 +10,7 @@ export default function Contact() {
 
   return (
     <>
-      <section className="bg-gradient-to-br from-maroon to-maroon-dark py-12 text-white">
+      <section className="bg-gradient-to-br from-brand to-brand-dark py-12 text-white">
         <div className="container-page">
           <h1 className="text-4xl font-extrabold uppercase">Contact</h1>
           <p className="mt-2 text-white/80">Questions, bulk orders or events — reach out any time.</p>
@@ -27,7 +27,7 @@ export default function Contact() {
           {settings?.phone && (
             <div>
               <h2 className="text-sm font-bold uppercase tracking-wider text-green">Phone / WhatsApp</h2>
-              <a href={`tel:+${toWhatsAppNumber(settings.phone)}`} className="mt-1 block font-semibold text-maroon hover:underline">
+              <a href={`tel:+${toWhatsAppNumber(settings.phone)}`} className="mt-1 block font-semibold text-brand hover:underline">
                 {settings.phone}
               </a>
             </div>
@@ -35,7 +35,7 @@ export default function Contact() {
           {settings?.email && (
             <div>
               <h2 className="text-sm font-bold uppercase tracking-wider text-green">Email</h2>
-              <a href={`mailto:${settings.email}`} className="mt-1 block text-maroon hover:underline">{settings.email}</a>
+              <a href={`mailto:${settings.email}`} className="mt-1 block text-brand hover:underline">{settings.email}</a>
             </div>
           )}
           {settings?.opening_hours && (
@@ -44,7 +44,7 @@ export default function Contact() {
               <p className="mt-1 whitespace-pre-line">{settings.opening_hours}</p>
             </div>
           )}
-          <SocialLinks settings={settings} className="text-maroon" />
+          <SocialLinks settings={settings} className="text-brand" />
           {waLink && (
             <a href={waLink} target="_blank" rel="noopener noreferrer" className="btn-accent">
               <WhatsAppIcon /> Message us on WhatsApp

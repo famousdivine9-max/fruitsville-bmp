@@ -62,7 +62,7 @@ export default function Dashboard() {
     <>
       <PageHeader title="Dashboard" subtitle={settings?.business_name} />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Stat label="Sales today" value={formatMoney(data.todayTotal, currency)} tone="text-maroon" />
+        <Stat label="Sales today" value={formatMoney(data.todayTotal, currency)} tone="text-brand" />
         <Stat label="Transactions today" value={data.todayCount} />
         <Stat label="Last 7 days" value={formatMoney(data.weekTotal, currency)} />
         <Stat label="Low-stock items" value={data.lowStock.length} tone={data.lowStock.length ? 'text-red' : 'text-green'} />
@@ -78,7 +78,7 @@ export default function Dashboard() {
                 <XAxis dataKey="label" fontSize={12} />
                 <YAxis fontSize={12} width={70} tickFormatter={(v) => formatMoney(v, currency)} />
                 <Tooltip formatter={(v) => formatMoney(v, currency)} />
-                <Bar dataKey="total" name="Revenue" fill="#6E1E42" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="total" name="Revenue" fill="#E30A0A" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

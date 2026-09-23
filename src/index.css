@@ -15,24 +15,24 @@
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
   }
-  /* primary = maroon, accent = red, secondary = green */
+  /* primary = brand, accent = red, secondary = green */
   .btn-primary {
-    @apply btn bg-maroon text-white hover:bg-maroon-dark focus-visible:ring-maroon;
+    @apply btn bg-brand text-white hover:bg-brand-dark focus-visible:ring-brand;
   }
   .btn-accent {
-    @apply btn bg-red text-white hover:bg-red-dark focus-visible:ring-red;
+    @apply btn bg-green text-white hover:bg-green-dark focus-visible:ring-green;
   }
   .btn-secondary {
     @apply btn bg-green text-white hover:bg-green-dark focus-visible:ring-green;
   }
   .btn-outline {
-    @apply btn border border-maroon/30 text-maroon hover:bg-maroon-light focus-visible:ring-maroon;
+    @apply btn border border-brand/30 text-brand hover:bg-brand-light focus-visible:ring-brand;
   }
   .btn-sm {
     @apply px-3 py-1.5 text-xs;
   }
   .input {
-    @apply w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-charcoal placeholder:text-gray-400 focus:border-maroon focus:outline-none focus:ring-1 focus:ring-maroon;
+    @apply w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-charcoal placeholder:text-gray-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand;
   }
   .label {
     @apply mb-1 block text-sm font-medium text-charcoal;

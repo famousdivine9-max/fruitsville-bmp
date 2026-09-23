@@ -18,7 +18,7 @@ export default function Menu() {
 
   return (
     <>
-      <section className="bg-gradient-to-br from-maroon to-maroon-dark py-12 text-white">
+      <section className="bg-gradient-to-br from-brand to-brand-dark py-12 text-white">
         <div className="container-page">
           <h1 className="text-4xl font-extrabold uppercase">Our Menu</h1>
           <p className="mt-2 text-white/80">Made fresh every day. Tap any item to order on WhatsApp.</p>
@@ -36,7 +36,7 @@ export default function Menu() {
                   key={c.slug}
                   onClick={() => setActive(c.slug)}
                   className={`btn btn-sm ${
-                    active === c.slug ? 'bg-maroon text-white' : 'border border-gray-300 bg-white text-charcoal hover:border-maroon'
+                    active === c.slug ? 'bg-brand text-white' : 'border border-gray-300 bg-white text-charcoal hover:border-brand'
                   }`}
                 >
                   {c.name}
@@ -49,7 +49,7 @@ export default function Menu() {
               if (!items.length) return null
               return (
                 <section key={c.id} id={c.slug} className="mb-12 scroll-mt-24">
-                  <h2 className="mb-1 text-2xl font-extrabold text-maroon">{c.name}</h2>
+                  <h2 className="mb-1 text-2xl font-extrabold text-brand">{c.name}</h2>
                   {c.description && <p className="mb-5 text-sm text-gray-500">{c.description}</p>}
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {items.map((p) => (
@@ -62,7 +62,7 @@ export default function Menu() {
 
             {active === 'all' && uncategorised.length > 0 && (
               <section className="mb-12">
-                <h2 className="mb-5 text-2xl font-extrabold text-maroon">More</h2>
+                <h2 className="mb-5 text-2xl font-extrabold text-brand">More</h2>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {uncategorised.map((p) => (
                     <ProductCard key={p.id} product={p} />

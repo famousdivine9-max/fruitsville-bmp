@@ -39,7 +39,7 @@ function AdjustForm({ item, canAdjust, onDone }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-wrap items-end gap-2 bg-maroon-light/50 p-3">
+    <form onSubmit={onSubmit} className="flex flex-wrap items-end gap-2 bg-brand-light/50 p-3">
       <div>
         <label className="label text-xs">Type</label>
         <select className="input" value={reason} onChange={(e) => setReason(e.target.value)}>

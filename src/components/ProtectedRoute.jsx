@@ -11,7 +11,7 @@ export default function ProtectedRoute({ minRole = 'staff', children }) {
   if (!hasRole(minRole)) {
     return (
       <div className="card mx-auto my-16 max-w-md p-8 text-center">
-        <h2 className="text-lg font-bold text-maroon">Access restricted</h2>
+        <h2 className="text-lg font-bold text-brand">Access restricted</h2>
         <p className="mt-2 text-sm text-gray-600">
           Your account doesn't have permission to view this page. Ask an administrator to update your role.
         </p>

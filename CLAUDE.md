@@ -104,60 +104,40 @@ using these real values in place of any old placeholder ones.
 Replace any generic green/orange "citrus" theme with the actual Fruitsville identity, extracted
 from the flyer and sticker artwork:
 
-**Color palette** (these are close visual estimates from the artwork — if Famous provides brand
-guideline hex codes or the logo file later, prefer those over this estimate):
+**Color palette** — UPDATED per Famous: match the MR FRUITSVILLE product sticker (red + green on
+white), not the maroon flyer. Colours were sampled from the sticker; the tokens live in `tailwind.config.js`:
 
 ```js
 colors: {
-  maroon: {
-    DEFAULT: '#6E1E42',   // primary — the flyer's background gradient, nav, hero
-    dark:    '#4A1530',   // darker variant — footer, bottom contact bar (matches the flyer's
-                            // "For More Enquires" strip)
-    light:   '#F5E9EF',
-  },
-  red: {
-    DEFAULT: '#D62839',   // the "MR FRUITSVILLE" wordmark red + "OUR SERVICES" banner red
-    dark:    '#B01F2E',
-    light:   '#FCEAEC',
-  },
-  green: {
-    DEFAULT: '#1B6B3C',   // the logo's green + the product-list text green + "PARFAIT" wordmark
-    dark:    '#14532D',
-    light:   '#E7F3EC',
-  },
-  yellow: {
-    DEFAULT: '#F4C430',   // small accent only — the "NET WT 330ml" badge on the sticker
-  },
+  brand:  { DEFAULT: '#E30A0A', dark: '#A8070A', light: '#FDECEC' }, // sticker red — PRIMARY
+  green:  { DEFAULT: '#07773B', dark: '#036535', light: '#E6F4EC' }, // "PARFAIT" green — ACCENT
+  red:    { DEFAULT: '#E30A0A', dark: '#B00808', light: '#FDECEC' }, // alerts / destructive actions
+  yellow: { DEFAULT: '#F4C430' },                                     // minor accent only
   charcoal: '#2A2A28',
   cream: '#FFFFFF',
 }
 ```
 
-**How these map onto the UI (rename/replace roles, don't just add tokens):**
-- Anywhere a color was used as PRIMARY (nav active state, primary buttons, hero background) →
-  use `maroon`
-- Anywhere a color was used as ACCENT (CTAs, "Order now" buttons, badges) → use `red`
-- Keep a `green` token as a SECONDARY accent — it's genuinely part of the brand (the logo and
-  "PARFAIT" wordmark are green), just not primary. Use it for things like an "in stock" badge,
-  secondary buttons, or small brand flashes
+**How these map onto the UI:**
+- PRIMARY (nav, hero background, primary buttons, headings) → `brand`; footer → `brand-dark`
+- ACCENT (Order now / Order on WhatsApp CTAs, hero badge, in-stock badges) → `green`
+- `red` only for errors, delete buttons and small red banners on white
 - `yellow` is a minor accent only — a tag, a small badge — never a background or button color
 
 **Typography:** Poppins (display/headings) + Inter (body) — the flyer's bold, slightly
 condensed sans-serif wordmark style is a good match for Poppins ExtraBold.
 
 **Logo placement:**
-- Top-left of the navbar and again in the footer (grouped with business name, address, and
-  socials — mirror how the sticker groups logo + name + address + socials together)
-- Logo file is NOT provided yet — Famous will supply the real file later. Build the `<img
-  src="/logo.png" alt="Fruitsville logo" />` now, and create a simple placeholder image (a
-  circle, green, with a leaf/fruit-ish shape or just the letter "F") at `/public/logo.png` so
-  the layout doesn't break before the real file arrives. Leave a clear code comment:
-  `{/* TODO: swap /public/logo.png for the real logo file once provided */}`
+- Top-left of the navbar and again in the footer (grouped with business name, address, and socials)
+- `/public/logo.png` is the real "ZFB" logo, cut from the product sticker (red ring on white).
+  It's low-resolution; replace it with the original logo file when Famous provides one.
+
+**Staff/admin access:** the public site has NO link to the admin portal. Staff use the separate URL
+https://fruitsville-staff.vercel.app (redirects to `/admin/login`, see `vercel.json`).
 
 **Hero section direction:** the flyer's dominant visual is a deep maroon/plum gradient
-background with product photography in rounded panels and a red "Today's specials"-style
-banner. Build the public Home page hero to follow that direction — maroon gradient background,
-red accent badge/CTA, and clearly-labeled placeholder image panels where real product
+background with product photography in rounded panels and a "Today's specials"-style
+banner. The Home page hero uses a brand-red gradient background, green accent badge/CTA, and clearly-labeled placeholder image panels where real product
 photography will go (see §6 — photos are pending).
 
 ---

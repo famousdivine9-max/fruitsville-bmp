@@ -1,9 +1,9 @@
 // Product photo, or a branded placeholder with the product's first letter
 // when no image has been uploaded yet.
 const PLACEHOLDERS = [
-  'bg-maroon-light text-maroon',
+  'bg-brand-light text-brand',
   'bg-green-light text-green',
-  'bg-maroon text-white',
+  'bg-brand text-white',
   'bg-green text-white',
 ]
 

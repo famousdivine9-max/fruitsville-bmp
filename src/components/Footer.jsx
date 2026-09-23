@@ -10,7 +10,7 @@ export default function Footer() {
   const waLink = whatsappLink(settings)
 
   return (
-    <footer className="bg-maroon-dark text-white">
+    <footer className="bg-brand-dark text-white">
       <div className="container-page grid gap-10 py-12 md:grid-cols-3">
         {/* Logo grouped with name, address and socials, like the product sticker */}
         <div className="space-y-4">
@@ -57,9 +57,9 @@ export default function Footer() {
         </div>
       )}
 
-      <div className="container-page flex flex-col items-center justify-between gap-2 py-4 text-xs text-white/60 sm:flex-row">
-        <span>© {year} {settings?.business_name}</span>
-        <Link to="/admin" className="hover:text-white">Staff login</Link>
+      {/* No staff/admin link here on purpose — staff use the separate staff URL (see vercel.json). */}
+      <div className="container-page py-4 text-center text-xs text-white/60">
+        © {year} {settings?.business_name}
       </div>
     </footer>
   )

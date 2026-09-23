@@ -4,22 +4,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Fruitsville brand palette (estimated from flyer + sticker artwork —
-        // prefer official hex codes if brand guidelines are supplied later)
-        maroon: {
-          DEFAULT: '#6E1E42', // primary — nav, hero, primary buttons
-          dark: '#4A1530', // footer, bottom contact bar
-          light: '#F5E9EF',
+        // Fruitsville brand palette, sampled from the MR FRUITSVILLE product sticker
+        brand: {
+          DEFAULT: '#E30A0A', // primary — sticker red: nav, hero, primary buttons, headings
+          dark: '#A8070A', // footer, contact strip, hover states
+          light: '#FDECEC', // pale tint for section backgrounds
         },
         red: {
-          DEFAULT: '#D62839', // accent — CTAs, "Order now", badges
-          dark: '#B01F2E',
-          light: '#FCEAEC',
+          DEFAULT: '#E30A0A', // alerts, destructive actions, small red flashes
+          dark: '#B00808',
+          light: '#FDECEC',
         },
         green: {
-          DEFAULT: '#1B6B3C', // secondary accent — logo green, in-stock, secondary buttons
-          dark: '#14532D',
-          light: '#E7F3EC',
+          DEFAULT: '#07773B', // accent — "PARFAIT" wordmark green: order/WhatsApp CTAs, in-stock
+          dark: '#036535',
+          light: '#E6F4EC',
         },
         yellow: {
           DEFAULT: '#F4C430', // minor accent only — small tags/badges

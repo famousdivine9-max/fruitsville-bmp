@@ -9,7 +9,7 @@ export default function Gallery() {
 
   return (
     <>
-      <section className="bg-gradient-to-br from-maroon to-maroon-dark py-12 text-white">
+      <section className="bg-gradient-to-br from-brand to-brand-dark py-12 text-white">
         <div className="container-page">
           <h1 className="text-4xl font-extrabold uppercase">Gallery</h1>
           <p className="mt-2 text-white/80">A look at what we make every day. More photos coming soon.</p>
@@ -19,7 +19,7 @@ export default function Gallery() {
         {tiles.map((p) => (
           <figure key={p.id} className="overflow-hidden rounded-2xl">
             <ProductImage product={p} className="aspect-square w-full" />
-            {p.name && <figcaption className="mt-2 text-sm font-semibold text-maroon">{p.name}</figcaption>}
+            {p.name && <figcaption className="mt-2 text-sm font-semibold text-brand">{p.name}</figcaption>}
           </figure>
         ))}
       </div>
