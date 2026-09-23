@@ -8,14 +8,14 @@
 -- =============================================================================
 
 -- Business -------------------------------------------------------------------
-insert into public.businesses (slug, name, business_type)
+insert into bmp.businesses (slug, name, business_type)
 values ('fruitsville', 'Fruitsville', 'restaurant')
 on conflict (slug) do update
   set name = excluded.name,
       business_type = excluded.business_type;
 
 -- Settings -------------------------------------------------------------------
-insert into public.settings (
+insert into bmp.settings (
   business_id, business_name, display_name, tagline, about,
   address, phone, whatsapp, instagram, facebook, tiktok, currency
 )
@@ -35,7 +35,7 @@ select
   'https://facebook.com/mrfruitsville',
   'https://tiktok.com/@mrfruitsville',
   'NGN'
-from public.businesses b
+from bmp.businesses b
 where b.slug = 'fruitsville'
 on conflict (business_id) do update
   set business_name = excluded.business_name,
@@ -51,9 +51,9 @@ on conflict (business_id) do update
       currency      = excluded.currency;
 
 -- Categories -----------------------------------------------------------------
-insert into public.categories (business_id, name, slug, description, sort_order)
+insert into bmp.categories (business_id, name, slug, description, sort_order)
 select b.id, c.name, c.slug, c.description, c.sort_order
-from public.businesses b
+from bmp.businesses b
 cross join (values
   ('Wraps & Shawarma',   'wraps-shawarma',   'Loaded shawarma, wrapped fresh to order.',            1),
   ('Parfait & Yoghurt',  'parfait-yoghurt',  'Layered parfait and creamy yoghurt.',                 2),
@@ -69,9 +69,9 @@ on conflict (business_id, slug) do update
 
 -- Products -------------------------------------------------------------------
 -- TODO: real price pending from Famous — every price below is a 0.00 placeholder.
-insert into public.products (business_id, category_id, name, description, price, sort_order)
+insert into bmp.products (business_id, category_id, name, description, price, sort_order)
 select b.id, c.id, p.name, p.description, 0.00, p.sort_order
-from public.businesses b
+from bmp.businesses b
 join (values
   ('wraps-shawarma',  'Shawarma',         'Freshly wrapped shawarma.',               1),
   ('parfait-yoghurt', 'Parfait',          'Layered yoghurt, fruit and granola.',     1),
@@ -85,7 +85,7 @@ join (values
   ('chicken',         'Chicken Wings',    'Seasoned chicken wings.',                 2),
   ('chicken',         'Chicken Salad',    'Fresh salad topped with chicken.',        3)
 ) as p(category_slug, name, description, sort_order) on true
-join public.categories c on c.business_id = b.id and c.slug = p.category_slug
+join bmp.categories c on c.business_id = b.id and c.slug = p.category_slug
 where b.slug = 'fruitsville'
 on conflict (business_id, name) do update
   set category_id = excluded.category_id,
@@ -109,8 +109,8 @@ begin
     return;
   end if;
 
-  insert into public.profiles (id, business_id, role, full_name)
-  values (uid, (select id from public.businesses where slug = 'fruitsville'), 'administrator', 'Famous')
+  insert into bmp.profiles (id, business_id, role, full_name)
+  values (uid, (select id from bmp.businesses where slug = 'fruitsville'), 'administrator', 'Famous')
   on conflict (id) do update
     set business_id = excluded.business_id,
         role        = 'administrator';

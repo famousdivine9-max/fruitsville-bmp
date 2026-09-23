@@ -12,6 +12,9 @@ if (!isSupabaseConfigured) {
   )
 }
 
-export const supabase = isSupabaseConfigured ? createClient(url, anonKey) : null
+// App tables live in the `bmp` Postgres schema (see supabase/schema.sql).
+export const DB_SCHEMA = 'bmp'
+
+export const supabase = isSupabaseConfigured ? createClient(url, anonKey, { db: { schema: DB_SCHEMA } }) : null
 
 export const PRODUCT_IMAGES_BUCKET = 'product-images'
