@@ -2,6 +2,7 @@ import PageHero from '../components/PageHero'
 import SocialLinks from '../components/SocialLinks'
 import WhatsAppIcon from '../components/WhatsAppIcon'
 import { useAuth } from '../context/AuthContext'
+import { directionsUrl, mapEmbedUrl } from '../lib/maps'
 import { toWhatsAppNumber, whatsappLink } from '../lib/whatsapp'
 
 function InfoCard({ icon, color, title, children }) {
@@ -19,7 +20,8 @@ function InfoCard({ icon, color, title, children }) {
 export default function Contact() {
   const { settings } = useAuth()
   const waLink = whatsappLink(settings, 'Hello, I have an enquiry.')
-  const mapQuery = settings?.address ? encodeURIComponent(settings.address) : null
+  const embed = mapEmbedUrl(settings)
+  const directions = directionsUrl(settings)
 
   return (
     <>
@@ -27,7 +29,14 @@ export default function Contact() {
       <div className="container-page grid gap-8 py-14 lg:grid-cols-2">
         <div className="space-y-4">
           {settings?.address && (
-            <InfoCard icon="📍" color="bg-orange-light" title="Address">{settings.address}</InfoCard>
+            <InfoCard icon="📍" color="bg-orange-light" title="Address">
+              {settings.address}
+              {directions && (
+                <a href={directions} target="_blank" rel="noopener noreferrer" className="btn-secondary btn-sm mt-3 flex w-fit">
+                  Get directions
+                </a>
+              )}
+            </InfoCard>
           )}
           {settings?.phone && (
             <InfoCard icon="📞" color="bg-green-light" title="Phone / WhatsApp">
@@ -53,12 +62,13 @@ export default function Contact() {
             <SocialLinks settings={settings} className="text-ink" />
           </div>
         </div>
-        {mapQuery && (
+        {embed && (
           <iframe
-            title="Map"
-            className="h-80 w-full rounded-2xl border-0 shadow-sm lg:h-full"
+            title={`Map to ${settings?.business_name ?? 'us'}`}
+            className="h-80 w-full rounded-2xl border-0 shadow-sm lg:h-full lg:min-h-[28rem]"
             loading="lazy"
-            src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            referrerPolicy="no-referrer-when-downgrade"
+            src={embed}
           />
         )}
       </div>

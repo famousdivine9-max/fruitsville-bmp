@@ -42,7 +42,7 @@ export default {
         fadein: { from: { opacity: 0, transform: 'translateY(12px)' }, to: { opacity: 1, transform: 'none' } },
       },
       animation: {
-        marquee: 'marquee 45s linear infinite',
+        marquee: 'marquee 40s linear infinite',
         kenburns: 'kenburns 9s ease-out forwards',
         fadein: 'fadein .6s ease-out both',
       },

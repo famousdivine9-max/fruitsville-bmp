@@ -18,6 +18,8 @@ export default function PublicLayout() {
         <Outlet />
       </main>
       <Footer />
+      {/* keep the floating WhatsApp button from covering the last footer line on phones */}
+      <div className="h-16 bg-ink sm:hidden" />
       <FloatingWhatsApp />
     </div>
   )

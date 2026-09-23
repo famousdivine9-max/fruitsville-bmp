@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { directionsUrl } from '../lib/maps'
 import { useReviews } from '../lib/useReviews'
 import { toWhatsAppNumber, whatsappLink } from '../lib/whatsapp'
 import Logo from './Logo'
@@ -21,9 +22,7 @@ export default function Footer() {
   const year = new Date().getFullYear()
   const waLink = whatsappLink(settings)
   const latest = reviews[0]
-  const mapLink = settings?.address
-    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`
-    : null
+  const mapLink = directionsUrl(settings)
 
   return (
     <footer className="bg-ink text-white/75">

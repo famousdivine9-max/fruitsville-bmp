@@ -11,6 +11,15 @@ const FIELDS = [
   { key: 'tagline', label: 'Tagline', wide: true },
   { key: 'about', label: 'About (shown on About page)', wide: true, textarea: true },
   { key: 'address', label: 'Address', wide: true },
+  {
+    key: 'latitude',
+    label: 'Map latitude',
+    type: 'number',
+    step: 'any',
+    hint: 'Exact shop location. In Google Maps, long-press the shop to drop a pin and copy the two numbers (they look like 7.25…, 5.19…): the first is latitude, the second is longitude.',
+  },
+  { key: 'longitude', label: 'Map longitude', type: 'number', step: 'any' },
+  { key: 'map_query', label: 'Map search text (used when no coordinates are set)', wide: true },
   { key: 'phone', label: 'Phone' },
   { key: 'whatsapp', label: 'WhatsApp number', hint: 'Any format — saved as international digits, e.g. 234XXXXXXXXXX' },
   { key: 'email', label: 'Email', type: 'email' },
@@ -40,6 +49,8 @@ export default function Settings() {
     const row = { business_id: business.id }
     for (const f of FIELDS) row[f.key] = (form[f.key] ?? '').toString().trim() || null
     row.whatsapp = row.whatsapp ? toWhatsAppNumber(row.whatsapp) : null
+    row.latitude = row.latitude === null ? null : Number(row.latitude)
+    row.longitude = row.longitude === null ? null : Number(row.longitude)
     row.currency = (row.currency || 'NGN').toUpperCase()
     const { error } = await supabase.from('settings').upsert(row)
     setBusy(false)
@@ -60,7 +71,7 @@ export default function Settings() {
             {f.textarea ? (
               <textarea id={f.key} rows={3} className="input" value={form[f.key] ?? ''} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} />
             ) : (
-              <input id={f.key} type={f.type ?? 'text'} required={f.required} className="input" value={form[f.key] ?? ''} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} />
+              <input id={f.key} type={f.type ?? 'text'} step={f.step} required={f.required} className="input" value={form[f.key] ?? ''} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} />
             )}
             {f.hint && <p className="mt-1 text-xs text-gray-500">{f.hint}</p>}
           </div>

@@ -50,6 +50,13 @@ on conflict (business_id) do update
       tiktok        = excluded.tiktok,
       currency      = excluded.currency;
 
+-- Map: until exact coordinates are entered in Admin → Settings, point the map at
+-- the First Bank branch next door (a landmark Google Maps knows precisely).
+update bmp.settings st
+set map_query = 'First Bank, 1 Alagbaka Road, Alagbaka, Akure, Ondo State, Nigeria'
+from bmp.businesses b
+where b.id = st.business_id and b.slug = 'fruitsville' and st.map_query is null;
+
 -- Categories -----------------------------------------------------------------
 insert into bmp.categories (business_id, name, slug, description, sort_order)
 select b.id, c.name, c.slug, c.description, c.sort_order

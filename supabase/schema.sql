@@ -57,6 +57,12 @@ create table if not exists bmp.settings (
   updated_at    timestamptz not null default now()
 );
 
+-- Map location (added later, so ALTER keeps existing projects in step).
+-- latitude/longitude pin the exact spot; map_query is the fallback search text.
+alter table bmp.settings add column if not exists map_query text;
+alter table bmp.settings add column if not exists latitude  numeric(9, 6) check (latitude between -90 and 90);
+alter table bmp.settings add column if not exists longitude numeric(9, 6) check (longitude between -180 and 180);
+
 create table if not exists bmp.categories (
   id          uuid primary key default gen_random_uuid(),
   business_id uuid not null references bmp.businesses (id) on delete cascade,

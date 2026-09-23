@@ -60,9 +60,9 @@
   }
 }
 
+/* The photo strip and slideshow always move (the owner wants motion even when the
+   OS "reduce animations" setting is on); only the small entrance fades are skipped. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
-  .animate-kenburns,
   .animate-fadein {
     animation: none !important;
   }
