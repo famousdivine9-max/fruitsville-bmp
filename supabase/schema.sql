@@ -432,6 +432,65 @@ create policy orders_staff_all on bmp.orders for all
   with check (bmp.has_role(business_id, 'staff'));
 
 -- -----------------------------------------------------------------------------
+-- Gallery photos and customer reviews
+-- -----------------------------------------------------------------------------
+
+create table if not exists bmp.gallery_images (
+  id          uuid primary key default gen_random_uuid(),
+  business_id uuid not null references bmp.businesses (id) on delete cascade,
+  image_url   text not null,
+  caption     text,
+  sort_order  int not null default 0,
+  created_at  timestamptz not null default now(),
+  unique (business_id, image_url)
+);
+
+-- Customers submit reviews from the website; they stay hidden until a manager
+-- approves them in Admin → Reviews.
+create table if not exists bmp.reviews (
+  id          uuid primary key default gen_random_uuid(),
+  business_id uuid not null references bmp.businesses (id) on delete cascade,
+  name        text not null check (char_length(name) between 1 and 80),
+  rating      int not null check (rating between 1 and 5),
+  comment     text not null check (char_length(comment) between 3 and 1000),
+  is_approved boolean not null default false,
+  created_at  timestamptz not null default now()
+);
+
+create index if not exists gallery_images_business_idx on bmp.gallery_images (business_id, sort_order);
+create index if not exists reviews_business_idx        on bmp.reviews (business_id, is_approved, created_at desc);
+
+alter table bmp.gallery_images enable row level security;
+alter table bmp.reviews        enable row level security;
+
+drop policy if exists gallery_public_read on bmp.gallery_images;
+create policy gallery_public_read on bmp.gallery_images for select using (true);
+
+drop policy if exists gallery_manager_write on bmp.gallery_images;
+create policy gallery_manager_write on bmp.gallery_images for all
+  using (bmp.has_role(business_id, 'manager'))
+  with check (bmp.has_role(business_id, 'manager'));
+
+-- Anyone may read approved reviews; staff also see pending ones.
+drop policy if exists reviews_read on bmp.reviews;
+create policy reviews_read on bmp.reviews for select
+  using (is_approved or bmp.has_role(business_id, 'staff'));
+
+-- Anyone may submit a review, but never as already approved.
+drop policy if exists reviews_public_insert on bmp.reviews;
+create policy reviews_public_insert on bmp.reviews for insert
+  with check (not is_approved);
+
+drop policy if exists reviews_manager_update on bmp.reviews;
+create policy reviews_manager_update on bmp.reviews for update
+  using (bmp.has_role(business_id, 'manager'))
+  with check (bmp.has_role(business_id, 'manager'));
+
+drop policy if exists reviews_manager_delete on bmp.reviews;
+create policy reviews_manager_delete on bmp.reviews for delete
+  using (bmp.has_role(business_id, 'manager'));
+
+-- -----------------------------------------------------------------------------
 -- API access to the bmp schema (RLS above still decides which rows)
 -- -----------------------------------------------------------------------------
 

@@ -8,8 +8,8 @@ import { dayKey, formatMoney } from '../../lib/format'
 import { supabase } from '../../lib/supabaseClient'
 
 // Chart colours follow the brand tokens in tailwind.config.js.
-const BRAND = { brand: '#E30A0A', green: '#07773B', dark: '#A8070A', yellow: '#F4C430', charcoal: '#2A2A28' }
-const PIE_COLORS = [BRAND.brand, BRAND.green, BRAND.yellow, BRAND.dark, BRAND.charcoal]
+const BRAND = { red: '#D7261E', green: '#1E8A44', orange: '#EE8A1F', yellow: '#F4C430', ink: '#1F1D1B' }
+const PIE_COLORS = [BRAND.green, BRAND.orange, BRAND.red, BRAND.yellow, BRAND.ink]
 
 function daysAgo(n) {
   const d = new Date()
@@ -111,7 +111,7 @@ export default function Reports() {
         ].map(([label, value]) => (
           <div key={label} className="card p-5">
             <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{label}</p>
-            <p className="mt-2 text-2xl font-bold text-brand">{value}</p>
+            <p className="mt-2 text-2xl font-bold text-ink">{value}</p>
           </div>
         ))}
       </div>
@@ -125,7 +125,7 @@ export default function Reports() {
               <XAxis dataKey="day" fontSize={12} />
               <YAxis fontSize={12} width={80} tickFormatter={(v) => formatMoney(v, currency)} />
               <Tooltip formatter={(v) => formatMoney(v, currency)} />
-              <Line type="monotone" dataKey="total" name="Revenue" stroke={BRAND.brand} strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="total" name="Revenue" stroke={BRAND.orange} strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>

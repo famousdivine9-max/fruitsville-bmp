@@ -28,10 +28,10 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-brand to-brand-dark p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-cream to-cream-dark p-4">
       <form onSubmit={onSubmit} className="card w-full max-w-sm space-y-4 p-8">
         <div className="flex justify-center">
-          <Logo settings={settings} className="h-12 w-12" nameClassName="text-brand" />
+          <Logo settings={settings} className="h-12 w-12" nameClassName="text-ink" />
         </div>
         <h1 className="text-center text-lg font-bold text-charcoal">Staff sign in</h1>
         <Alert tone="error">{error}</Alert>

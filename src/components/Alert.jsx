@@ -1,7 +1,7 @@
 const TONES = {
   error: 'bg-red-light text-red-dark border-red/30',
   success: 'bg-green-light text-green-dark border-green/30',
-  info: 'bg-brand-light text-brand border-brand/20',
+  info: 'bg-orange-light text-ink border-ink/20',
 }
 
 export default function Alert({ tone = 'info', children }) {

@@ -9,6 +9,7 @@ import Gallery from './pages/Gallery'
 import Home from './pages/Home'
 import Menu from './pages/Menu'
 import NotFound from './pages/NotFound'
+import Reviews from './pages/Reviews'
 
 // Admin portal is split out so public visitors don't download it (or Recharts).
 const AdminLayout = lazy(() => import('./layouts/AdminLayout'))
@@ -18,6 +19,7 @@ const Inventory = lazy(() => import('./pages/admin/Inventory'))
 const Login = lazy(() => import('./pages/admin/Login'))
 const Products = lazy(() => import('./pages/admin/Products'))
 const Reports = lazy(() => import('./pages/admin/Reports'))
+const ReviewsAdmin = lazy(() => import('./pages/admin/ReviewsAdmin'))
 const Sales = lazy(() => import('./pages/admin/Sales'))
 const Settings = lazy(() => import('./pages/admin/Settings'))
 
@@ -32,6 +34,7 @@ export default function App() {
           <Route path="menu" element={<Menu />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="about" element={<About />} />
+          <Route path="reviews" element={<Reviews />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>
@@ -44,6 +47,7 @@ export default function App() {
           <Route path="products" element={guard('manager', <Products />)} />
           <Route path="categories" element={guard('manager', <Categories />)} />
           <Route path="reports" element={guard('manager', <Reports />)} />
+          <Route path="reviews" element={guard('manager', <ReviewsAdmin />)} />
           <Route path="settings" element={guard('administrator', <Settings />)} />
         </Route>
       </Routes>

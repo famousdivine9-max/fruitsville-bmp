@@ -15,7 +15,7 @@ export default function SocialLinks({ settings, className = '' }) {
             href={settings[n.key]}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-current px-3 py-1 text-xs font-semibold hover:opacity-80"
+            className="rounded-full border border-current px-3 py-1 text-xs font-semibold transition hover:opacity-70"
           >
             {n.label}
           </a>

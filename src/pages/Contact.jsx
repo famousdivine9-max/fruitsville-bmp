@@ -1,7 +1,20 @@
+import PageHero from '../components/PageHero'
 import SocialLinks from '../components/SocialLinks'
 import WhatsAppIcon from '../components/WhatsAppIcon'
 import { useAuth } from '../context/AuthContext'
 import { toWhatsAppNumber, whatsappLink } from '../lib/whatsapp'
+
+function InfoCard({ icon, color, title, children }) {
+  return (
+    <div className="card flex gap-4 p-5">
+      <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xl ${color}`}>{icon}</span>
+      <div>
+        <h2 className="text-sm font-bold uppercase tracking-wider">{title}</h2>
+        <div className="mt-1 text-sm">{children}</div>
+      </div>
+    </div>
+  )
+}
 
 export default function Contact() {
   const { settings } = useAuth()
@@ -10,51 +23,40 @@ export default function Contact() {
 
   return (
     <>
-      <section className="bg-gradient-to-br from-brand to-brand-dark py-12 text-white">
-        <div className="container-page">
-          <h1 className="text-4xl font-extrabold uppercase">Contact</h1>
-          <p className="mt-2 text-white/80">Questions, bulk orders or events — reach out any time.</p>
-        </div>
-      </section>
-      <div className="container-page grid gap-8 py-12 md:grid-cols-2">
-        <div className="card space-y-5 p-6">
+      <PageHero eyebrow="Contact" eyebrowClass="text-green" title="Come say hello" subtitle="Questions, bulk orders or events — reach out any time." photoIndex={3} />
+      <div className="container-page grid gap-8 py-14 lg:grid-cols-2">
+        <div className="space-y-4">
           {settings?.address && (
-            <div>
-              <h2 className="text-sm font-bold uppercase tracking-wider text-green">Address</h2>
-              <p className="mt-1">{settings.address}</p>
-            </div>
+            <InfoCard icon="📍" color="bg-orange-light" title="Address">{settings.address}</InfoCard>
           )}
           {settings?.phone && (
-            <div>
-              <h2 className="text-sm font-bold uppercase tracking-wider text-green">Phone / WhatsApp</h2>
-              <a href={`tel:+${toWhatsAppNumber(settings.phone)}`} className="mt-1 block font-semibold text-brand hover:underline">
-                {settings.phone}
-              </a>
-            </div>
+            <InfoCard icon="📞" color="bg-green-light" title="Phone / WhatsApp">
+              <a href={`tel:+${toWhatsAppNumber(settings.phone)}`} className="font-semibold text-ink hover:underline">{settings.phone}</a>
+            </InfoCard>
           )}
           {settings?.email && (
-            <div>
-              <h2 className="text-sm font-bold uppercase tracking-wider text-green">Email</h2>
-              <a href={`mailto:${settings.email}`} className="mt-1 block text-brand hover:underline">{settings.email}</a>
-            </div>
+            <InfoCard icon="✉️" color="bg-red-light" title="Email">
+              <a href={`mailto:${settings.email}`} className="text-ink hover:underline">{settings.email}</a>
+            </InfoCard>
           )}
           {settings?.opening_hours && (
-            <div>
-              <h2 className="text-sm font-bold uppercase tracking-wider text-green">Opening hours</h2>
-              <p className="mt-1 whitespace-pre-line">{settings.opening_hours}</p>
-            </div>
+            <InfoCard icon="🕒" color="bg-yellow-light" title="Opening hours">
+              <span className="whitespace-pre-line">{settings.opening_hours}</span>
+            </InfoCard>
           )}
-          <SocialLinks settings={settings} className="text-brand" />
-          {waLink && (
-            <a href={waLink} target="_blank" rel="noopener noreferrer" className="btn-accent">
-              <WhatsAppIcon /> Message us on WhatsApp
-            </a>
-          )}
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            {waLink && (
+              <a href={waLink} target="_blank" rel="noopener noreferrer" className="btn-accent">
+                <WhatsAppIcon /> Message us on WhatsApp
+              </a>
+            )}
+            <SocialLinks settings={settings} className="text-ink" />
+          </div>
         </div>
         {mapQuery && (
           <iframe
             title="Map"
-            className="h-80 w-full rounded-2xl border-0 md:h-full"
+            className="h-80 w-full rounded-2xl border-0 shadow-sm lg:h-full"
             loading="lazy"
             src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
           />

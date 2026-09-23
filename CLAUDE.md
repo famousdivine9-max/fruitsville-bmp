@@ -104,25 +104,21 @@ using these real values in place of any old placeholder ones.
 Replace any generic green/orange "citrus" theme with the actual Fruitsville identity, extracted
 from the flyer and sticker artwork:
 
-**Color palette** — UPDATED per Famous: match the MR FRUITSVILLE product sticker (red + green on
-white), not the maroon flyer. Colours were sampled from the sticker; the tokens live in `tailwind.config.js`:
+**Color palette** — UPDATED per Famous: a modern, balanced restaurant look. No single colour may
+dominate. The base is a warm neutral (cream background, charcoal "ink" text, charcoal footer), and the
+logo's red, green, orange and yellow are shared evenly as accents (rotated via `src/lib/accents.js`).
+Tokens live in `tailwind.config.js`:
 
 ```js
-colors: {
-  brand:  { DEFAULT: '#E30A0A', dark: '#A8070A', light: '#FDECEC' }, // sticker red — PRIMARY
-  green:  { DEFAULT: '#07773B', dark: '#036535', light: '#E6F4EC' }, // "PARFAIT" green — ACCENT
-  red:    { DEFAULT: '#E30A0A', dark: '#B00808', light: '#FDECEC' }, // alerts / destructive actions
-  yellow: { DEFAULT: '#F4C430' },                                     // minor accent only
-  charcoal: '#2A2A28',
-  cream: '#FFFFFF',
-}
+ink:    { DEFAULT: '#1F1D1B', soft: '#57534E', muted: '#8A847D' }, // text, primary buttons, footer
+cream:  { DEFAULT: '#FFFAF3', dark: '#F6EDE0' },                   // backgrounds
+red:    { DEFAULT: '#D7261E', ... },  // accent
+green:  { DEFAULT: '#1E8A44', ... },  // accent + order/WhatsApp CTAs
+orange: { DEFAULT: '#EE8A1F', ... },  // accent + links
+yellow: { DEFAULT: '#F4C430', ... },  // accent + star ratings
 ```
 
-**How these map onto the UI:**
-- PRIMARY (nav, hero background, primary buttons, headings) → `brand`; footer → `brand-dark`
-- ACCENT (Order now / Order on WhatsApp CTAs, hero badge, in-stock badges) → `green`
-- `red` only for errors, delete buttons and small red banners on white
-- `yellow` is a minor accent only — a tag, a small badge — never a background or button color
+Don't reintroduce a full-red (or any single-colour) UI.
 
 **Typography:** Poppins (display/headings) + Inter (body) — the flyer's bold, slightly
 condensed sans-serif wordmark style is a good match for Poppins ExtraBold.
@@ -135,10 +131,12 @@ condensed sans-serif wordmark style is a good match for Poppins ExtraBold.
 **Staff/admin access:** the public site has NO link to the admin portal. Staff use the separate URL
 https://fruitsville-staff.vercel.app (redirects to `/admin/login`, see `vercel.json`).
 
-**Hero section direction:** the flyer's dominant visual is a deep maroon/plum gradient
-background with product photography in rounded panels and a "Today's specials"-style
-banner. The Home page hero uses a brand-red gradient background, green accent badge/CTA, and clearly-labeled placeholder image panels where real product
-photography will go (see §6 — photos are pending).
+**Photos & motion:** real photos live in `public/images/gallery` (listed in `bmp.gallery_images`)
+and `public/images/products` (set as product `image_url` by seed.sql). The Home hero is a cross-fading
+slideshow, with an auto-scrolling photo strip below it. Product cards show the photo with the price tag on it.
+
+**Footer:** four columns: About us, Contact, Address and Reviews. Reviews are real customer
+submissions (`bmp.reviews`) that a manager approves in Admin → Reviews. Never seed or invent reviews.
 
 ---
 

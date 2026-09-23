@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import PageHero from '../components/PageHero'
 import ProductCard from '../components/ProductCard'
 import Spinner from '../components/Spinner'
+import { accent } from '../lib/accents'
 import { useCatalog } from '../lib/useCatalog'
 
 export default function Menu() {
@@ -18,25 +20,20 @@ export default function Menu() {
 
   return (
     <>
-      <section className="bg-gradient-to-br from-brand to-brand-dark py-12 text-white">
-        <div className="container-page">
-          <h1 className="text-4xl font-extrabold uppercase">Our Menu</h1>
-          <p className="mt-2 text-white/80">Made fresh every day. Tap any item to order on WhatsApp.</p>
-        </div>
-      </section>
+      <PageHero eyebrow="Our menu" eyebrowClass="text-green" title="Made fresh, every day" subtitle="Tap “Order on WhatsApp” on any item and we’ll get it ready for you." photoIndex={1} />
 
-      <div className="container-page py-10">
+      <div className="container-page py-12">
         {loading ? (
           <Spinner />
         ) : (
           <>
-            <div className="mb-8 flex flex-wrap gap-2">
+            <div className="sticky top-16 z-20 -mx-4 mb-10 flex gap-2 overflow-x-auto bg-cream/95 px-4 py-3 backdrop-blur">
               {[{ slug: 'all', name: 'All' }, ...categories].map((c) => (
                 <button
                   key={c.slug}
                   onClick={() => setActive(c.slug)}
-                  className={`btn btn-sm ${
-                    active === c.slug ? 'bg-brand text-white' : 'border border-gray-300 bg-white text-charcoal hover:border-brand'
+                  className={`btn btn-sm shrink-0 ${
+                    active === c.slug ? 'bg-ink text-white' : 'border border-ink/15 bg-white text-ink hover:border-ink/40'
                   }`}
                 >
                   {c.name}
@@ -44,13 +41,19 @@ export default function Menu() {
               ))}
             </div>
 
-            {visibleCategories.map((c) => {
+            {visibleCategories.map((c, i) => {
               const items = products.filter((p) => p.category_id === c.id)
               if (!items.length) return null
+              const a = accent(categories.indexOf(c))
               return (
-                <section key={c.id} id={c.slug} className="mb-12 scroll-mt-24">
-                  <h2 className="mb-1 text-2xl font-extrabold text-brand">{c.name}</h2>
-                  {c.description && <p className="mb-5 text-sm text-gray-500">{c.description}</p>}
+                <section key={c.id} id={c.slug} className="mb-14 scroll-mt-32">
+                  <div className="mb-6 flex items-center gap-3">
+                    <span className={`h-8 w-1.5 rounded-full ${a.bg}`} />
+                    <div>
+                      <h2 className="text-2xl font-extrabold">{c.name}</h2>
+                      {c.description && <p className="text-sm">{c.description}</p>}
+                    </div>
+                  </div>
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {items.map((p) => (
                       <ProductCard key={p.id} product={p} />
@@ -61,8 +64,8 @@ export default function Menu() {
             })}
 
             {active === 'all' && uncategorised.length > 0 && (
-              <section className="mb-12">
-                <h2 className="mb-5 text-2xl font-extrabold text-brand">More</h2>
+              <section className="mb-14">
+                <h2 className="mb-6 text-2xl font-extrabold">More</h2>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {uncategorised.map((p) => (
                     <ProductCard key={p.id} product={p} />
@@ -71,7 +74,7 @@ export default function Menu() {
               </section>
             )}
 
-            {!products.length && <p className="py-16 text-center text-gray-500">The menu is being updated — check back soon.</p>}
+            {!products.length && <p className="py-16 text-center">The menu is being updated — check back soon.</p>}
           </>
         )}
       </div>

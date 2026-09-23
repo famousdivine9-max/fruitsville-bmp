@@ -9,12 +9,13 @@ const LINKS = [
   { to: '/menu', label: 'Menu' },
   { to: '/gallery', label: 'Gallery' },
   { to: '/about', label: 'About' },
+  { to: '/reviews', label: 'Reviews' },
   { to: '/contact', label: 'Contact' },
 ]
 
 const linkClass = ({ isActive }) =>
-  `rounded-full px-3 py-2 text-sm font-semibold transition ${
-    isActive ? 'bg-white text-brand' : 'text-white/90 hover:bg-white/10 hover:text-white'
+  `relative px-3 py-2 text-sm font-semibold transition ${
+    isActive ? 'text-ink after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-orange' : 'text-ink-soft hover:text-ink'
   }`
 
 export default function Navbar() {
@@ -23,20 +24,20 @@ export default function Navbar() {
   const orderLink = whatsappLink(settings, 'Hello, I would like to place an order.')
 
   return (
-    <header className="sticky top-0 z-30 bg-brand text-white shadow-md">
+    <header className="sticky top-0 z-30 border-b border-ink/5 bg-white/90 backdrop-blur">
       <nav className="container-page flex h-16 items-center justify-between gap-4">
         <Link to="/" className="shrink-0" onClick={() => setOpen(false)}>
-          <Logo settings={settings} nameClassName="text-white" />
+          <Logo settings={settings} nameClassName="text-ink" />
         </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           {LINKS.map((l) => (
             <NavLink key={l.to} to={l.to} end={l.end} className={linkClass}>
               {l.label}
             </NavLink>
           ))}
           {orderLink && (
-            <a href={orderLink} target="_blank" rel="noopener noreferrer" className="btn-accent btn-sm ml-2">
+            <a href={orderLink} target="_blank" rel="noopener noreferrer" className="btn-accent btn-sm ml-3">
               Order now
             </a>
           )}
@@ -44,7 +45,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="rounded-lg p-2 hover:bg-white/10 md:hidden"
+          className="rounded-lg p-2 text-ink hover:bg-cream-dark lg:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
@@ -56,15 +57,15 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-white/10 md:hidden">
-          <div className="container-page flex flex-col gap-1 py-3">
+        <div className="border-t border-ink/5 bg-white lg:hidden">
+          <div className="container-page flex flex-col py-3">
             {LINKS.map((l) => (
               <NavLink key={l.to} to={l.to} end={l.end} className={linkClass} onClick={() => setOpen(false)}>
                 {l.label}
               </NavLink>
             ))}
             {orderLink && (
-              <a href={orderLink} target="_blank" rel="noopener noreferrer" className="btn-accent mt-2">
+              <a href={orderLink} target="_blank" rel="noopener noreferrer" className="btn-accent mt-3">
                 Order now
               </a>
             )}

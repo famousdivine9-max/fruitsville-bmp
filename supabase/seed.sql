@@ -94,6 +94,49 @@ on conflict (business_id, name) do update
   -- price is intentionally NOT overwritten on re-run, so real prices set in
   -- Admin → Products survive re-seeding.
 
+-- Product photos ---------------------------------------------------------------
+-- Photos shipped with the site (public/images/products). Only fills products that
+-- have no photo yet, or still use one of these bundled photos, so photos uploaded
+-- in Admin → Products are never overwritten.
+update bmp.products p
+set image_url = v.image_url
+from bmp.businesses b,
+  (values
+    ('Parfait',          '/images/products/parfait.jpg'),
+    ('Chops',            '/images/products/chops.jpg'),
+    ('Spring Roll',      '/images/products/spring-roll.jpg'),
+    ('Samosa',           '/images/products/samosa.jpg'),
+    ('Chicken Salad',    '/images/products/chicken-salad.jpg'),
+    ('Peppered Chicken', '/images/products/peppered-chicken.jpg'),
+    ('Shawarma',         '/images/products/shawarma.jpg'),
+    ('Smoothie',         '/images/products/smoothie.jpg')
+  ) as v(name, image_url)
+where b.slug = 'fruitsville'
+  and p.business_id = b.id
+  and p.name = v.name
+  and (p.image_url is null or p.image_url like '/images/products/%');
+
+-- Gallery ----------------------------------------------------------------------
+insert into bmp.gallery_images (business_id, image_url, caption, sort_order)
+select b.id, g.image_url, g.caption, g.sort_order
+from bmp.businesses b
+cross join (values
+  ('/images/gallery/parfait-cups.jpg',          'Fresh fruit parfait',          1),
+  ('/images/gallery/small-chops.jpg',           'Small chops in cups',          2),
+  ('/images/gallery/chicken-salad-tray.jpg',    'Chicken salad tray',           3),
+  ('/images/gallery/smoothie-and-shawarma.jpg', 'Smoothie & shawarma',          4),
+  ('/images/gallery/parfait-batch.jpg',         'Parfait, packed fresh',        5),
+  ('/images/gallery/milkshake.jpg',             'Chilled milkshake',            6),
+  ('/images/gallery/festive-hamper.jpg',        'Festive hamper',               7),
+  ('/images/gallery/fruit-juice-bottles.jpg',   'Fresh fruit juice',            8),
+  ('/images/gallery/parfait-batch-top.jpg',     'Parfait toppings',             9),
+  ('/images/gallery/fried-rice.jpg',            'Fried rice special',          10)
+) as g(image_url, caption, sort_order)
+where b.slug = 'fruitsville'
+on conflict (business_id, image_url) do update
+  set caption = excluded.caption,
+      sort_order = excluded.sort_order;
+
 -- First administrator ---------------------------------------------------------
 -- The admin login is created by Famous himself in Supabase → Authentication →
 -- Users → "Add user" (email + password). Then set his email below and re-run

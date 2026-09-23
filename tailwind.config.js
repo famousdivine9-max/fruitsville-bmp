@@ -4,27 +4,47 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Fruitsville brand palette, sampled from the MR FRUITSVILLE product sticker
-        brand: {
-          DEFAULT: '#E30A0A', // primary — sticker red: nav, hero, primary buttons, headings
-          dark: '#A8070A', // footer, contact strip, hover states
-          light: '#FDECEC', // pale tint for section backgrounds
+        // Balanced palette: a warm neutral base with the logo's red, green, orange and
+        // yellow shared evenly as accents — no single colour dominates the page.
+        ink: {
+          DEFAULT: '#1F1D1B', // headings, primary buttons, footer
+          soft: '#57534E', // body text
+          muted: '#8A847D', // captions
+        },
+        cream: {
+          DEFAULT: '#FFFAF3', // page background
+          dark: '#F6EDE0', // alternating section background
         },
         red: {
-          DEFAULT: '#E30A0A', // alerts, destructive actions, small red flashes
-          dark: '#B00808',
-          light: '#FDECEC',
+          DEFAULT: '#D7261E', // logo red — accents, destructive actions
+          dark: '#A91C16',
+          light: '#FDECEA',
         },
         green: {
-          DEFAULT: '#07773B', // accent — "PARFAIT" wordmark green: order/WhatsApp CTAs, in-stock
-          dark: '#036535',
-          light: '#E6F4EC',
+          DEFAULT: '#1E8A44', // logo green — WhatsApp/order CTAs, in-stock
+          dark: '#166A34',
+          light: '#E7F5EC',
+        },
+        orange: {
+          DEFAULT: '#EE8A1F', // logo orange — highlights, links
+          dark: '#C46E10',
+          light: '#FFF1E0',
         },
         yellow: {
-          DEFAULT: '#F4C430', // minor accent only — small tags/badges
+          DEFAULT: '#F4C430', // small tags, star ratings
+          light: '#FEF7DC',
         },
-        charcoal: '#2A2A28',
-        cream: '#FFFFFF',
+        charcoal: '#1F1D1B',
+      },
+      keyframes: {
+        marquee: { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },
+        kenburns: { '0%': { transform: 'scale(1)' }, '100%': { transform: 'scale(1.12)' } },
+        fadein: { from: { opacity: 0, transform: 'translateY(12px)' }, to: { opacity: 1, transform: 'none' } },
+      },
+      animation: {
+        marquee: 'marquee 45s linear infinite',
+        kenburns: 'kenburns 9s ease-out forwards',
+        fadein: 'fadein .6s ease-out both',
       },
       fontFamily: {
         display: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],

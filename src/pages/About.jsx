@@ -1,40 +1,47 @@
 import { Link } from 'react-router-dom'
+import PageHero from '../components/PageHero'
 import { useAuth } from '../context/AuthContext'
+import { accent } from '../lib/accents'
 import { useCatalog } from '../lib/useCatalog'
+import { useGallery } from '../lib/useGallery'
 
 export default function About() {
   const { settings } = useAuth()
   const { categories } = useCatalog()
+  const gallery = useGallery()
 
   return (
     <>
-      <section className="bg-gradient-to-br from-brand to-brand-dark py-12 text-white">
-        <div className="container-page">
-          <h1 className="text-4xl font-extrabold uppercase">About {settings?.business_name}</h1>
-          {settings?.tagline && <p className="mt-2 text-white/80">{settings.tagline}</p>}
+      <PageHero eyebrow="About us" eyebrowClass="text-orange" title={`About ${settings?.business_name ?? ''}`} subtitle={settings?.tagline} photoIndex={4} />
+      <div className="container-page grid items-center gap-12 py-16 md:grid-cols-2">
+        <div className="space-y-4 leading-relaxed">
+          {settings?.about?.split('\n').filter(Boolean).map((para, i) => <p key={i}>{para}</p>)}
+          <div className="flex flex-wrap gap-3 pt-2">
+            <Link to="/menu" className="btn-primary">Browse the menu</Link>
+            <Link to="/contact" className="btn-outline">Visit us</Link>
+          </div>
         </div>
-      </section>
-      <div className="container-page grid gap-10 py-12 md:grid-cols-3">
-        <div className="space-y-4 text-gray-700 md:col-span-2">
-          {settings?.about?.split('\n').filter(Boolean).map((para, i) => (
-            <p key={i} className="leading-relaxed">{para}</p>
+        <div className="grid grid-cols-2 gap-4">
+          {gallery.slice(0, 4).map((img, i) => (
+            <img key={img.id} src={img.image_url} alt={img.caption ?? ''} loading="lazy" className={`aspect-square w-full rounded-2xl object-cover shadow-sm ${i % 2 ? 'translate-y-6' : ''}`} />
           ))}
-          <Link to="/menu" className="btn-primary mt-4">Browse the menu</Link>
         </div>
-        {categories.length > 0 && (
-          <aside className="card p-6">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-green">What we make</h2>
-            <ul className="space-y-2 text-sm">
-              {categories.map((c) => (
-                <li key={c.id} className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-red" />
-                  {c.name}
-                </li>
-              ))}
-            </ul>
-          </aside>
-        )}
       </div>
+      {categories.length > 0 && (
+        <section className="bg-cream-dark/60 py-14">
+          <div className="container-page">
+            <h2 className="mb-6 text-center text-2xl font-extrabold">What we make</h2>
+            <div className="flex flex-wrap justify-center gap-3">
+              {categories.map((c, i) => (
+                <span key={c.id} className={`badge px-4 py-2 text-sm ${accent(i).soft} text-ink`}>
+                  <span className={`mr-2 h-2 w-2 rounded-full ${accent(i).bg}`} />
+                  {c.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   )
 }
