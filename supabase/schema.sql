@@ -254,18 +254,24 @@ drop trigger if exists sales_apply_inventory on public.sales;
 create trigger sales_apply_inventory after insert on public.sales
   for each row execute function public.apply_sale_to_inventory();
 
--- New auth users get a profile. A signup may pass { business_slug } in its
--- metadata to attach to a business; the role always starts as 'customer' and
--- must be raised by an administrator (or seed.sql for the first admin).
+-- New auth users that sign up with { business_slug } in their metadata get a
+-- profile attached to that business. Other auth users (e.g. another app sharing
+-- this Supabase project) are left alone; seed.sql creates the first admin's
+-- profile directly. The role always starts as 'customer' and must be raised by
+-- an administrator.
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
+declare
+  b uuid;
 begin
+  select id into b from public.businesses
+  where slug = new.raw_user_meta_data ->> 'business_slug';
+  if b is null then
+    return new;
+  end if;
+
   insert into public.profiles (id, full_name, business_id)
-  values (
-    new.id,
-    new.raw_user_meta_data ->> 'full_name',
-    (select id from public.businesses where slug = new.raw_user_meta_data ->> 'business_slug')
-  )
+  values (new.id, new.raw_user_meta_data ->> 'full_name', b)
   on conflict (id) do nothing;
   return new;
 end $$;

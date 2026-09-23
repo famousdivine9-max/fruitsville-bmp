@@ -22,6 +22,12 @@ supabase link --project-ref <ref>
 supabase db push --include-seed
 ```
 
+### Sharing a Supabase project with another app
+
+The free plan allows 2 active projects, so Fruitsville can live in a project another app already uses. Its table, function and bucket names don't collide with the NYSC ID Card System's. Its auth trigger also ignores users that don't sign up with a Fruitsville `business_slug`.
+
+In a shared project, don't run `supabase db push`: the remote migration history belongs to the other app. Instead, open the Supabase dashboard → SQL Editor and run `supabase/schema.sql`, then `supabase/seed.sql`. Both are safe to re-run.
+
 ### First admin login
 
 1. Supabase dashboard → Authentication → Users → **Add user** (your email + password).
